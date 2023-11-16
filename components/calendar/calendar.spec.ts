@@ -444,6 +444,42 @@ describe('Calendar', () => {
       expect(componentElement.classList).not.toContain('ant-picker-calendar-rtl');
     }));
   });
+
+  
+  describe('headerVisible', () => {
+    let fixture: ComponentFixture<NzTestCalendarHeaderVisbleComponent>;
+    let component: NzTestCalendarModeComponent;
+
+    beforeEach(
+      waitForAsync(() => {
+        fixture = TestBed.createComponent(NzTestCalendarModeComponent);
+        component = fixture.componentInstance;
+      })
+    );
+
+    it('calendar header should be visible', () => {
+      fixture.detectChanges();
+
+      const header = fixture.debugElement
+        .queryAll(By.directive(Calendar))[0]
+        .query(By.directive(CalendarHeader))
+        .injector.get(CalendarHeader);
+      expect(header).toBeDefined();
+    });
+
+    it('calendar header should be invisble with nzHeaderVisible set false', () => {
+      component.headerVisible = false;
+
+      fixture.detectChanges();
+
+      const header = fixture.debugElement
+        .queryAll(By.directive(Calendar))[0]
+        .query(By.directive(CalendarHeader))
+        .injector.get(CalendarHeader);
+      expect(header).toBeUndefined();
+    });
+ });
+
 });
 
 @Component({
@@ -554,3 +590,15 @@ export class NzTestCalendarRtlComponent {
   @ViewChild(Dir) dir!: Dir;
   direction = 'rtl';
 }
+
+
+@Component({
+  template: `
+    <nz-calendar [nzHeaderVisible]="headerVisible"></nz-calendar>
+  `
+})
+export class NzTestCalendarHeaderVisibleComponent {
+  headerVisible = false;
+}
+
+

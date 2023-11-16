@@ -46,6 +46,7 @@ type NzCalendarDateTemplate = TemplateRef<{ $implicit: Date }>;
   exportAs: 'nzCalendar',
   template: `
     <nz-calendar-header
+      *ngIf="nzHeaderVisible"
       [fullscreen]="nzFullscreen"
       [activeDate]="activeDate"
       [(mode)]="nzMode"
@@ -108,6 +109,7 @@ export class NzCalendarComponent implements ControlValueAccessor, OnChanges, OnI
   @Input() nzMode: NzCalendarMode = 'month';
   @Input() nzValue?: Date;
   @Input() nzDisabledDate?: (date: Date) => boolean;
+  @Input() nzHeaderVisible = true;
 
   @Output() readonly nzModeChange: EventEmitter<NzCalendarMode> = new EventEmitter();
   @Output() readonly nzPanelChange: EventEmitter<{ date: Date; mode: NzCalendarMode }> = new EventEmitter();
